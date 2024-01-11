@@ -13,8 +13,8 @@
 
 // Pixel type
 typedef struct {
-  Vector2 pos;           // Position of pixel
-  unsigned int ptrColor; // Pointer to color of pixel in color palette array
+  Vector2 pos;              // Position of pixel
+  unsigned int ptrColor;    // Pointer to color of pixel in color palette array
 } FirePixel;
 
 // Recalculate pixel colors in the pixel frame buffer
@@ -24,16 +24,15 @@ void SpreadFire(FirePixel *pixels, int width, int height) {
   for (int x = 0; x < width; x++) {
     for (int y = 0; y < height; y++) {
       int rand = GetRandomValue(
-          0, 3); // Using rng to make illusion look more realistic
-      int spreadFrom = width * y + x; // Current we are in
-      int spreadTo = spreadFrom - width - rand +
-                     1; // Determining the next pixel that fire going to spread
+          0, 3);                                      // Using rng to make illusion look more realistic
+      int spreadFrom = width * y + x;                 // Current we are in
+      int spreadTo = spreadFrom - width - rand + 1;   // Determining the next pixel that fire going to spread
 
       if (spreadTo <= 0)
-        spreadTo = 0; // Checking boundaries
+        spreadTo = 0;                                 // Checking boundaries
       if (pixels[spreadFrom].ptrColor <= 0) {
         pixels[spreadTo].ptrColor = 0;
-      } else { // If not out of bounds spreading fire to the next pixel
+      } else {                                        // If not out of bounds spreading fire to the next pixel
         pixels[spreadTo].ptrColor = pixels[spreadFrom].ptrColor - (rand & 1);
       }
     }
